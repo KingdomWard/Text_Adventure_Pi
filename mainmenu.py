@@ -2,8 +2,7 @@ import pygame
 
 pygame.init()
 
-# displaying a window of height
-# 500 and width 400
+# displaying window
 pygame.display.set_mode((1200, 800))
   
 # creating a bool value which checks
