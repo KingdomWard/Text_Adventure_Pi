@@ -5,7 +5,7 @@ import sys
 pygame.init()
 
 # variables
-SCREEN_WIDTH = 1200
+SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 800
 
 WHITE = (255, 255, 255)
@@ -38,6 +38,6 @@ def main_menu():
 
         draw_text("Text Adventure Pi", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4)
         draw_text("Press ENTER to Start", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        draw_text("Press Esc to Quit", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+        draw_text("Press ESC to Quit", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
 
         pygame.display.flip()
