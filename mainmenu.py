@@ -35,8 +35,13 @@ def main_menu():
                     return "quit"
 
         screen.fill(BLACK)
-
-        draw_text("Text Adventure Pi", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4)
+        '''
+        draw_text(   "  _____        _       _      _             _                  ___ _ ", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 5)
+        draw_text(   " |_   _|____ _| |_    /_\  __| |_ _____ _ _| |_ _  _ _ _ ___  | _ (_)", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 5+25)
+        draw_text(   "   | |/ -_) \ /  _|  / _ \/ _` \ V / -_) ' \  _| || | '_/ -_) |  _/ |", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 5+50)
+        draw_text(   "   |_|\___/_\_\\__| /_/ \_\__,_|\_/\___|_||_\__|\_,_|_| \___| |_| |_|", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 5+75)
+        '''
+        draw_text("Text Adventure Pi", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 -50)
         draw_text("Press ENTER to Start", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         draw_text("Press ESC to Quit", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
 

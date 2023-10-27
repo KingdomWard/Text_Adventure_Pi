@@ -11,7 +11,12 @@ SCREEN_HEIGHT = 800
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FONT = pygame.font.Font(None, 24)
-
+#images for scenes
+intro_image = pygame.image.load("./images/intro text image (muddy foggy village).jpeg")
+fight_rats_image = pygame.image.load("./images/fight rats.jpeg")
+house_villagers_image = pygame.image.load("./images/house villagers.jpeg")
+house_zombies_images = pygame.image.load("./images/house zombie.jpeg")
+title_screen_image = pygame.image.load("./images/title screen.jpeg")
 # Dialogue
 text_intro_1 = 'Tall shapes loom out of the dense fog that surrounds everything.'
 text_intro_2 = 'The muddy ground underfoot gives way to slick, wet cobblestones.'
@@ -75,36 +80,42 @@ def game_loop():
         screen.fill(BLACK)
 
         if game_state == "intro":
-            draw_text("Welcome to the Text Adventure Pi!", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+            screen.blit(title_screen_image, (180,-100))
+
+            draw_text("Welcome to the Text Adventure Pi!", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 25)
             draw_text("Press any key to continue...", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             
         elif game_state == "room1":
-            draw_text(text_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4)
-            draw_text(text_intro_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4 + 20)
-            draw_text(text_intro_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4 + 40)
-            draw_text(text_intro_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4 + 60)
-            draw_text(text_intro_5, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4 + 80)
+            screen.blit(intro_image, (180,-200))
+            draw_text(text_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
+            draw_text(text_intro_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 120)
+            draw_text(text_intro_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 140)
+            draw_text(text_intro_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 160)
+            draw_text(text_intro_5, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 180)
 
-            draw_text('What will you do?', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4 + 120)
+            draw_text('What will you do?', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 220)
 
-            draw_text("1. Fight Rats", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-            draw_text("2. Go to a House with Villagers", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
-            draw_text("3. Go to a House with Zombies", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
+            draw_text("1. Fight Rats", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 125)
+            draw_text("2. Go to a House with Villagers", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text("3. Go to a House with Zombies", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
 
         # fight rats option
         elif game_state == "room2":
-            draw_text(fight_rats_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-            draw_text(fight_rats_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 20)
+            screen.blit(fight_rats_image, (180,-200))
+            draw_text(fight_rats_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text(fight_rats_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
 
         # house with villagers option    
         elif game_state == "room3":
-            draw_text(house_villagers_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-            draw_text(house_villagers_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 20)
+            screen.blit(house_villagers_image, (180,-200))
+            draw_text(house_villagers_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text(house_villagers_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
 
         # house with zombies option
         elif game_state == "room4":
-            draw_text(house_zombies_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-            draw_text(house_zombies_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 20)
-            draw_text(house_zombies_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 60)
+            screen.blit(house_zombies_images, (180,-200))
+            draw_text(house_zombies_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text(house_zombies_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
+            draw_text(house_zombies_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 200)
 
         pygame.display.flip()
