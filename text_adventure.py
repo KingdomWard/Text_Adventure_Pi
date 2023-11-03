@@ -34,6 +34,36 @@ house_zombies_1 = 'The gentle drifting mist gives way to a boarded up home.'
 house_zombies_2 = 'As you approach the barricades you hear a crash and then with an explosion of wood the door shatters outward and you stand face to face with a zombie.'
 house_zombies_3 = 'Looks like you need to defend yourself'
 
+local_tavern_1 = 'A single shaft of light thrusts illumination into the main square, its brightness looking like a solid pillar in the heavy fog.'
+local_tavern_2 = 'Above the gaping doorway, a sign hangs precariously askew, proclaiming this to be the Blood on the Vine tavern.'
+
+enter_tavern_1 = 'You enter the rather large building, this once finely appointed tavern has grown shoddy over the years.'
+enter_tavern_2 = 'A blazing fire in the hearth gives scant warmth to the few huddled souls within.'
+enter_tavern_3 = 'They include three colorfully dressed individuals, a bearded older barkeep, and a young man who sits by himself at a corner table.'
+
+large_mansion_1 = 'A weary-looking mansion squats behind a rusting iron fence. The iron gates are twisted and torn.'
+large_mansion_2 = 'The right gate lies cast aside, while the left swings lazily in the wind. The stuttering squeal and clang of the gate repeats with mindless precision.'
+large_mansion_3 = 'Weeds choke the grounds and press with menace upon the house itself.'
+large_mansion_4 = 'Yet, against the walls, the growth has been tramped down to create a path all about the domain.'
+large_mansion_5 = 'Heavy claw markings have stripped the once-beautiful finish of the walls. Great black marks tell of the fires that have assailed the mansion.'
+large_mansion_6 = 'Not a pane nor a shard of glass stands in any window. All the windows are barred with planks, each one marked with stains of evil omen.'
+
+approach_mansion_door_1 = 'As you approach the door you notice a well trampled ring around the house with both wolf and human footprints.'
+approach_mansion_door_2 = 'As you inspect the tracks you notice one of the curtains shift as if someone was peeking at you from inside the house.'
+approach_mansion_door_3 = 'You quickly approach the door and knock and hear a woman from behind the door say, “Go away, we have no want of you here.”'
+
+lady_mansion_1 = '"Swear to me you have no allegiance to that monster (Vampire name), I have no patience for liars.”'
+lady_mansion_2 = 'You quickly and quietly assure her that you have no ties to anyone named (Vampire name).'
+lady_mansion_3 = 'After a moment you hear the turning of locks in the large wooden door and with a slow creak the door opens.'
+
+inside_mansion_1 = 'The interior of the mansion is well furnished, yet the fixtures show signs of great wear.'
+inside_mansion_2 = 'Noticeable oddities are the boarded-up windows and the presence of holy symbols in every room.'
+inside_mansion_3 = 'The burgomaster is in a side drawing room on the floor, lying in a simple wooden coffin surrounded by wilting flowers and a faint odor of decay.'
+inside_mansion_4 = '“My name is Ireena Kolyana,” the woman says as you enter.'
+inside_mansion_5 = 'You notice that under the fringes of her scarf two sets of small puncture wounds mark her neck.'
+
+
+
 # Create the game window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Text Adventure Game")
@@ -58,24 +88,41 @@ def game_loop():
                 if game_state == "intro":
                     game_state = "room1"
                 elif game_state == "room1":
-                    if event.key == pygame.K_1:  # if player presses 1
+                    if event.key == pygame.K_1:
                         game_state = "room2"
-                    elif event.key == pygame.K_2: # if player presses 2
+                    elif event.key == pygame.K_2:
                         game_state = "room3"
-                    elif event.key == pygame.K_3: # if player presses 3
+                    elif event.key == pygame.K_3:
                         game_state = "room4"
-                # press backspace to go to room 1
-                elif game_state == "room2":
-                    if event.key == pygame.K_BACKSPACE:
-                        game_state = "room1"
-                        
-                elif game_state == "room3":
-                    if event.key == pygame.K_BACKSPACE:
-                        game_state = "room1"
-
                 elif game_state == "room4":
-                    if event.key == pygame.K_BACKSPACE:
-                        game_state = "room1"
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 2-0"  # Transition state between 1 and 2
+                        
+                elif game_state == "room 2-0":
+                    if event.key == pygame.K_1:
+                        game_state = "room 2-1"  # If the player presses 1, go to local tavern
+                    elif event.key == pygame.K_2:
+                        game_state = "room 2-2"  # If the player presses 2, go to the mansion
+                
+                elif game_state == "room 2-1": # LOCAL TAVERN
+                    if event.key == pygame.K_RETURN: # ENTER go inside local tavern
+                        game_state = "room 2-1-0" # 1 to approach barkeep, 2 to approach dressed indivual, 3 to approach young man
+                
+                elif game_state == "room 2-2": # MANSION CHOICE
+                    if event.key == pygame.K_RETURN: # ENTER to approach mansion door
+                        game_state = "room 2-2-0"
+                
+                elif game_state == "room 2-2-0":
+                    if event.key == pygame.K_1: # 1 to talk to lady behind mansion door
+                        game_state = "room 2-2-1"
+                
+                elif game_state == "room 2-2-1":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 2-2-2"
+                
+                elif game_state == "room 2-2-2":
+                    if event.key == pygame.K_1:
+                        game_state = "room 2-2-3"
 
         screen.fill(BLACK)
 
@@ -117,5 +164,56 @@ def game_loop():
             draw_text(house_zombies_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
             draw_text(house_zombies_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
             draw_text(house_zombies_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 200)
+            draw_text("press ENTER to fight the zombies", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 250)
+        
+        # transition state
+        elif game_state == "room 2-0":
+            draw_text("You won the fight! What will you do now?", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT// 1.5 - 100)
+            draw_text("1. Approach the local tavern", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 55)
+            draw_text("2. Approach the large mansion", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 20)
+        
+        elif game_state == "room 2-1":
+            draw_text(local_tavern_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text(local_tavern_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
+            draw_text("Press ENTER to go inside", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 200)
+        
+        elif game_state == "room 2-1-0":
+            draw_text(enter_tavern_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
+            draw_text(enter_tavern_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 75)
+            draw_text(enter_tavern_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 50)
+            draw_text("1. Approach the Barkeep", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 10)
+            draw_text("2. Approach the colorfully dressed individual", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 45)
+            draw_text("3. Approach the young man", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 70)
+
+        elif game_state == "room 2-2":
+            draw_text(large_mansion_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(large_mansion_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(large_mansion_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(large_mansion_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text(large_mansion_5, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
+            draw_text(large_mansion_6, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 75)
+            draw_text("Press ENTER to approach the door", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5)
+        
+        elif game_state == "room 2-2-0":
+            draw_text(approach_mansion_door_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(approach_mansion_door_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(approach_mansion_door_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text("1. [“Please, I’m lost and need any help I can get!”]", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 30)
+        
+        elif game_state == "room 2-2-1":
+            draw_text(lady_mansion_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(lady_mansion_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(lady_mansion_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text("Press ENTER to go inside", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 30)
+
+        elif game_state == "room 2-2-2":    
+            draw_text(inside_mansion_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(inside_mansion_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(inside_mansion_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text(inside_mansion_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 80)
+            draw_text(inside_mansion_5, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 40)
+            draw_text('1. [What is this place?]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+            # left off to talking to lady inside mansion
 
         pygame.display.flip()
