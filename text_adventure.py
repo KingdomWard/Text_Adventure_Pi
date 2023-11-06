@@ -12,11 +12,15 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FONT = pygame.font.Font(None, 24)
 #images for scenes
-intro_image = pygame.image.load("./images/intro text image (muddy foggy village).jpeg")
-fight_rats_image = pygame.image.load("./images/fight rats.jpeg")
-house_villagers_image = pygame.image.load("./images/house villagers.jpeg")
-house_zombies_images = pygame.image.load("./images/house zombie.jpeg")
-title_screen_image = pygame.image.load("./images/title screen.jpeg")
+intro_image = pygame.image.load("Text_Adventure_Pi/images/intro text image (muddy foggy village).jpeg")
+fight_rats_image = pygame.image.load("Text_Adventure_Pi/images/fight rats.jpeg")
+house_villagers_image = pygame.image.load("Text_Adventure_Pi/images/house villagers.jpeg")
+house_zombies_images = pygame.image.load("Text_Adventure_Pi/images/house zombie.jpeg")
+title_screen_image = pygame.image.load("Text_Adventure_Pi/images/title screen.jpeg")
+dead_end_image = pygame.image.load("Text_Adventure_Pi/images/dead end.jpeg")
+map = pygame.image.load("Text_Adventure_Pi/images/Barovia-Map.webp")
+map1 = pygame.image.load("Text_Adventure_Pi/images/Town map.jpg")
+
 # Dialogue
 text_intro_1 = 'Tall shapes loom out of the dense fog that surrounds everything.'
 text_intro_2 = 'The muddy ground underfoot gives way to slick, wet cobblestones.'
@@ -86,18 +90,29 @@ def game_loop():
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if game_state == "intro":
-                    game_state = "room1"
+                    game_state = "room1"            # title screen
                 elif game_state == "room1":
                     if event.key == pygame.K_1:
-                        game_state = "room2"
+                        game_state = "room2"        #fight rats
                     elif event.key == pygame.K_2:
-                        game_state = "room3"
+                        game_state = "room3"        #house with villagers
                     elif event.key == pygame.K_3:
-                        game_state = "room4"
+                        game_state = "room4"        # house with zombies
+
+                elif game_state == "room2":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "DeadEnd"
+                elif game_state =="DeadEnd":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "Map1"
+                elif game_state == "Map1":
+                    if event.key == pygame.K_1:
+                        game_state = "room1"
+
                 elif game_state == "room4":
                     if event.key == pygame.K_RETURN:
-                        game_state = "room 2-0"  # Transition state between 1 and 2
-                        
+                        game_state = "room 2-0"  # Transition state between 1 and 2   ##door aproach
+
                 elif game_state == "room 2-0":
                     if event.key == pygame.K_1:
                         game_state = "room 2-1"  # If the player presses 1, go to local tavern
@@ -132,6 +147,14 @@ def game_loop():
             draw_text("Welcome to the Text Adventure Pi!", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 25)
             draw_text("Press any key to continue...", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             
+        elif game_state == "DeadEnd":
+            screen.blit(dead_end_image, (180,-200))
+            draw_text("Press Enter to Respawn", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
+
+        elif game_state == "Map1":
+            screen.blit(map1,(180,0))
+            draw_text("Please Choose Location", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
+            draw_text("1. Town", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
         elif game_state == "room1":
             screen.blit(intro_image, (180,-200))
             draw_text(text_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
