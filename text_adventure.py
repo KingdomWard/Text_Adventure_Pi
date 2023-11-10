@@ -12,14 +12,14 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FONT = pygame.font.Font(None, 24)
 #images for scenes
-intro_image = pygame.image.load("Text_Adventure_Pi/images/intro text image (muddy foggy village).jpeg")
-fight_rats_image = pygame.image.load("Text_Adventure_Pi/images/fight rats.jpeg")
-house_villagers_image = pygame.image.load("Text_Adventure_Pi/images/house villagers.jpeg")
-house_zombies_images = pygame.image.load("Text_Adventure_Pi/images/house zombie.jpeg")
-title_screen_image = pygame.image.load("Text_Adventure_Pi/images/title screen.jpeg")
-dead_end_image = pygame.image.load("Text_Adventure_Pi/images/dead end.jpeg")
-map = pygame.image.load("Text_Adventure_Pi/images/Barovia-Map.webp")
-map1 = pygame.image.load("Text_Adventure_Pi/images/Town map.jpg")
+intro_image = pygame.image.load("images\intro text image (muddy foggy village).jpeg")
+fight_rats_image = pygame.image.load("images/fight rats.jpeg")
+house_villagers_image = pygame.image.load("images\house villagers.jpeg")
+house_zombies_images = pygame.image.load("images\house zombie.jpeg")
+title_screen_image = pygame.image.load("images/title screen.jpeg")
+dead_end_image = pygame.image.load("images\dead end.jpeg")
+map = pygame.image.load("images\Barovia-Map.webp")
+map1 = pygame.image.load("images\Town map.jpg")
 
 # Dialogue
 text_intro_1 = 'Tall shapes loom out of the dense fog that surrounds everything.'
@@ -103,11 +103,23 @@ def game_loop():
                     if event.key == pygame.K_RETURN:
                         game_state = "DeadEnd"
                 elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_RETURN:    #fight rats dead end and respawn map
                         game_state = "Map1"
                 elif game_state == "Map1":
                     if event.key == pygame.K_1:
                         game_state = "room1"
+
+
+                elif game_state == "room3":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "DeadEnd"
+                elif game_state =="DeadEnd":
+                    if event.key == pygame.K_RETURN:       #house with villagers dead end and map
+                        game_state = "Map1"
+                elif game_state == "Map1":
+                    if event.key == pygame.K_1:
+                        game_state = "room1"
+
 
                 elif game_state == "room4":
                     if event.key == pygame.K_RETURN:
@@ -152,9 +164,12 @@ def game_loop():
             draw_text("Press Enter to Respawn", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
 
         elif game_state == "Map1":
-            screen.blit(map1,(180,0))
+            screen.blit(map1,(400,0))
             draw_text("Please Choose Location", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
-            draw_text("1. Town", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text("1. Town Entrance", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text("*", pygame.font.Font(None, 94), BLACK, SCREEN_WIDTH // 2 -245, SCREEN_HEIGHT // 1.5 )
+            draw_text("1.town Entrance", pygame.font.Font(None, 14), WHITE, SCREEN_WIDTH // 2 -245, SCREEN_HEIGHT // 1.5 + 10)
+
         elif game_state == "room1":
             screen.blit(intro_image, (180,-200))
             draw_text(text_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
