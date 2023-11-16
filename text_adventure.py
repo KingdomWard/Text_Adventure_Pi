@@ -66,7 +66,41 @@ inside_mansion_3 = 'The burgomaster is in a side drawing room on the floor, lyin
 inside_mansion_4 = '“My name is Ireena Kolyana,” the woman says as you enter.'
 inside_mansion_5 = 'You notice that under the fringes of her scarf two sets of small puncture wounds mark her neck.'
 
+talk_to_woman_1 = '“My name is Ireena Kolyana,” the woman says as you enter.'
+talk_to_woman_2 = 'You notice that under the fringes of her scarf two sets of small puncture wounds mark her neck.'
 
+what_is_place_1 = '“You, my dear traveler, have found yourself in Barovia, a land lost to time and under the control of a terrible monster.”'
+
+scarf_1 = 'She pulls the scarf up on her neck and hesitantly replies, “Yes, by the name of Strahd."'
+scarf_2 = '"He is the baron of these lands and he is a powerful vampire, his magic is what controls the mists around this land."'
+scarf_3 = '"While he lives they exist and none of us can leave.”'
+
+slay_monster_1 = '“The only way out is to slay the monster, but that is much easier said than done."'
+slay_monster_2 = '"He has his focus set on the few townspeople left with sense."'
+slay_monster_3 = '"We have been besieged here for the past two weeks."'
+slay_monster_4 = '"Every night we are attacked and must defend ourselves from wolves and ghouls alike."'
+
+accomplished_1 = 'She sighs and looks at you hesitantly, “the only way is to slay him but I know not how that can be accomplished."'
+accomplished_2 = '"There is a larger village deeper into the woods and if someone did know they would be there.”'
+
+nod_1 = '“Please,” she says, grabbing you by your sleeve, “take us with you, I do not think it is safe to stay here any longer.”'
+nod_2 = 'You nod your head and prepare to leave.'
+
+moors_intro_1 = 'As you follow the road deeper into the rocky grassland of the Moors the stone road becomes more and more dilapidated,'
+moors_intro_2 = 'eventually becoming nothing more than a set of wagon tracks etched into packed dirt.'
+moors_intro_3 = 'Finally at what could pass for a crossroads.'
+moors_intro_4 = 'Before you there are two more dirt packed roads leading off to the north and West.'
+moors_intro_5 = 'To the East the road becomes significantly nicer and in the distance on the side of a distant mountain you see an ominous castle peeking out of the mists.'
+
+moors_north_1 = 'The land smoothes out back into hilly forests and ahead of you you begin to notice the smoke rising from a large settlement.'
+
+mountain_slope_intro_1 = 'The road fades away under a covering of snow, but it takes you far enough to see the facade of some kind of temple carved into the sheer mountainside ahead.'
+mountain_slope_intro_2 = 'The front of the structure is fifty feet high and has six alcoves containing twenty-foot-tall statues.'
+mountain_slope_intro_3 = ' Each statue is carved from a single block of amber and depicts a faceless, hooded figure, its hands pressed together in a gesture of prayer.'
+mountain_slope_intro_4 = 'Between the two innermost statues is a twenty-foot-tall archway with a staircase leading down.'
+
+down_stairs_1 = 'Icy steps descend ten feet to a time-ravaged hallway with arrow slits in the walls.'
+down_stairs_2 = 'Beyond the hall lies a vast, sepulchral darkness.'
 
 # Create the game window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -138,6 +172,44 @@ def game_loop():
                 elif game_state == "room 2-2-2":
                     if event.key == pygame.K_1:
                         game_state = "room 2-2-3"
+
+                elif game_state == "room 2-2-3":
+                    if event.key == pygame.K_1:
+                        game_state = "room 2-2-4"
+
+                elif game_state == "room 2-2-4":
+                    if event.key == pygame.K_1:
+                        game_state = "room 2-2-5"
+
+                elif game_state == "room 2-2-5":
+                    if event.key == pygame.K_1:
+                        game_state = "room 2-2-6"
+                
+                elif game_state == "room 2-2-6":
+                    if event.key == pygame.K_1:
+                        game_state = "room 2-2-7"
+
+                elif game_state == "room 2-2-7":
+                    if event.key == pygame.K_RETURN: # press ENTER to go transition state
+                        game_state = "room 3-0"
+                
+                elif game_state == "room 3-0":
+                    if event.key == pygame.K_1:
+                        game_state = "room 3-0-1"
+                    elif event.key == pygame.K_2:
+                        game_state = "room 4-0"
+                # moors
+                elif game_state == "room 3-0-1":
+                    if event.key == pygame.K_1: # moors head north
+                        game_state = "room 3-1"
+                    elif event.key == pygame.K_2: # head east to castle ravenloft
+                        game_state = "room 3-2"
+                    elif event.key == pygame.K_3: # head south back to town
+                        game_state = "room1"
+                # mountain slope
+                elif game_state == "4-0":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "4-1"
 
         screen.fill(BLACK)
 
@@ -237,6 +309,59 @@ def game_loop():
             draw_text(inside_mansion_5, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 40)
             draw_text('1. [What is this place?]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
 
+        elif game_state == "room 2-2-3":    
+            draw_text(talk_to_woman_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(talk_to_woman_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text('1. [A terrible monster?]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 2-2-4":    
+            draw_text(scarf_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(scarf_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(scarf_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text('1. [There must be something that can be done?]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 2-2-5":    
+            draw_text(slay_monster_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(slay_monster_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(slay_monster_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text(slay_monster_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
+            draw_text('1. [I would like to help you slay the monster and win my freedom, surely you must know a way that can be accomplished?]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 2-2-6":
+            draw_text(accomplished_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(accomplished_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text('1. [Then that is where I must go]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 2-2-7":
+            draw_text(nod_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(nod_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text("Press ENTER to continue", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
             # left off to talking to lady inside mansion
+        
+        elif game_state == "room 3-0":
+            draw_text('What will you do now?', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text('1. [Go to the Moors]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+            draw_text('2. [Go to Mountain Slope]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 60)
+
+        elif game_state == "room 3-0-1":    
+            draw_text(moors_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(moors_intro_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(moors_intro_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text(moors_intro_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 80)
+            draw_text(moors_intro_5, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 40)
+            draw_text('1. [Head North]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+            draw_text('2. [Head East]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 60)
+            draw_text('3. [Head South back to Town]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 80)
+
+        elif game_state == "room 3-1":
+            draw_text('You notice a large V etched into a rock', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(moors_north_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+
+        elif game_state == "room 4-0":
+            draw_text(mountain_slope_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(mountain_slope_intro_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(mountain_slope_intro_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text(mountain_slope_intro_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
+            draw_text('Press ENTER to explore the Temple!', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
 
         pygame.display.flip()
