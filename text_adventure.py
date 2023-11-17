@@ -12,14 +12,14 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FONT = pygame.font.Font(None, 24)
 #images for scenes
-intro_image = pygame.image.load("images\intro text image (muddy foggy village).jpeg")
-fight_rats_image = pygame.image.load("images/fight rats.jpeg")
-house_villagers_image = pygame.image.load("images\house villagers.jpeg")
-house_zombies_images = pygame.image.load("images\house zombie.jpeg")
-title_screen_image = pygame.image.load("images/title screen.jpeg")
-dead_end_image = pygame.image.load("images\dead end.jpeg")
-map = pygame.image.load("images\Barovia-Map.webp")
-map1 = pygame.image.load("images\Town map.jpg")
+intro_image = pygame.image.load("Text_Adventure_Pi/images/intro text image (muddy foggy village).jpeg")
+fight_rats_image = pygame.image.load("Text_Adventure_Pi/images/fight rats.jpeg")
+house_villagers_image = pygame.image.load("Text_Adventure_Pi/images/house villagers.jpeg")
+house_zombies_images = pygame.image.load("Text_Adventure_Pi/images/house zombie.jpeg")
+title_screen_image = pygame.image.load("Text_Adventure_Pi/images/title screen.jpeg")
+dead_end_image = pygame.image.load("Text_Adventure_Pi/images/dead end.jpeg")
+map = pygame.image.load("Text_Adventure_Pi/images/Barovia-Map.webp")
+map1 = pygame.image.load("Text_Adventure_Pi/images/Town map.jpg")
 
 # Dialogue
 text_intro_1 = 'Tall shapes loom out of the dense fog that surrounds everything.'
@@ -102,6 +102,45 @@ mountain_slope_intro_4 = 'Between the two innermost statues is a twenty-foot-tal
 down_stairs_1 = 'Icy steps descend ten feet to a time-ravaged hallway with arrow slits in the walls.'
 down_stairs_2 = 'Beyond the hall lies a vast, sepulchral darkness.'
 
+overlook_1 = 'A twenty-foot-wide balcony of black marble with a shattered railing overlooks a vast temple.'
+overlook_2 = 'Black marble staircases at each end of the balcony descend thirty feet to the temple floor.'
+overlook_3 = 'The vaulted ceiling is thirty feet above the balcony. The walls and ceiling are covered in an amber glaze, lending the gloom a golden sheen.'
+overlook_4 = 'A set of amber doors stand destroyed on the west end of the room and a collection of skeletons loom in the corner.'
+
+empty_barracks_1 = 'Shattered bits of wood cover the floor of this frigid, twenty-foot-square room.'
+
+guard_room_1 ='Two arrow slits are carved into the west wall of this 10-foot-high, twenty-foot-square room.'
+guard_room_2 = 'Slumped in the northeast corner is askelton wearing a blue wizard’s robe clutching a wand to its chest.'
+
+temple_secrets_1 = 'Four black marble columns support the vaulting ceiling of the temple, at the north end of which stands a forty-foot-tall statue of a cowled figure in flowing robes.'
+temple_secrets_2 = 'The statue’s stony hands are outstretched as if in the midst of casting a spell. Its face is a void of utter blackness.'
+temple_secrets_3 = 'The ominous statue stands between two black marble balconies, one of which has partially collapsed and fallen on the temples black marble floor, in front of an open doorway.'
+temple_secrets_4 = 'The walls of the temple are sheathed in amber, and the doors leading from it are made of amber as well.'
+temple_secrets_5 = 'Arched hallways coated with amber lead away from the temple to the west and east.'
+temple_secrets_6 = 'Flanking these exits are alcoves that hold white marble statues of robed human wizards with pointed hats and golden staffs.'
+temple_secrets_7 = 'One of them has toppled over and lies shattered on the floor.'
+
+investigate_statues_1 = 'You approach the toppled statue in the center of the room and inspect the ruined remains.'
+investigate_statues_2 = 'As you move through the rubble you hear the grinding of stone on marble and turn to see two statues have come to life!'
+
+fight_statues_1 = 'Upon their defeat you hear another instance of stone grinding on stone and witness the altar opening up to a blinding light.'
+fight_statues_2 = 'As you approach the black marble plinth, you notice that the light seems to form into the shape of a sword, as your hand grips it you feel power flood through you.'
+
+bog_intro_1 = 'As you make your way through the swampy undergrowth you begin to see a shape forming through the trees.'
+bog_intro_2 = 'A branch in the road leads west to a promontory, atop which is perched a dilapidated stone wind-mill, its warped wooden vanes stripped bare.'
+bog_intro_3 = 'As you approach you get a better view of the tall building.'
+bog_intro_4 = 'The onion-domed edifice leans forward and to one side, as though trying to turn away from the stormy gray sky.'
+bog_intro_5 = 'You see gray brick walls and dirt-covered windows on the upper floors.'
+bog_intro_6 = 'A decrepit wooden platform encircles the windmill above a flimsy doorway leading to the building’s interior.'
+bog_intro_7 = 'Perched on a wooden beam above the door is a raven. It hops and squawks at you, seemingly agitated.'
+
+enter_windmill_1 = 'The ground floor has been converted into a makeshift kitchen, but the room is filthy. Baskets and old dishware are piled everywhere.'
+enter_windmill_2 = 'Adding to the clutter is a peddler’s cart, a chicken coop, a heavy wooden trunk, and a pretty wooden cabinet with flowers painted on its doors.'
+enter_windmill_3 = 'In addition to the clucking of the chickens, you hear toads croaking. The sweet smell of pastries blends horribly with a stench that burns you nostrils.'
+enter_windmill_4 = 'The awful odor comes out of an open, upright barrel in the center of the room.'
+enter_windmill_5 = 'Warmth issues from a brick oven against one wall, and a crumbling staircase ascends the wall across from it.'
+enter_windmill_6 = 'Shrieks and cackles from somewhere higher up cause the old mill the shudder.'
+
 # Create the game window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Text Adventure Game")
@@ -137,23 +176,11 @@ def game_loop():
                     if event.key == pygame.K_RETURN:
                         game_state = "DeadEnd"
                 elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:    #fight rats dead end and respawn map
-                        game_state = "Map1"
-                elif game_state == "Map1":
-                    if event.key == pygame.K_1:
-                        game_state = "room1"
-
-
-                elif game_state == "room3":
                     if event.key == pygame.K_RETURN:
-                        game_state = "DeadEnd"
-                elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:       #house with villagers dead end and map
                         game_state = "Map1"
                 elif game_state == "Map1":
                     if event.key == pygame.K_1:
                         game_state = "room1"
-
 
                 elif game_state == "room4":
                     if event.key == pygame.K_RETURN:
@@ -236,12 +263,9 @@ def game_loop():
             draw_text("Press Enter to Respawn", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
 
         elif game_state == "Map1":
-            screen.blit(map1,(400,0))
+            screen.blit(map1,(180,0))
             draw_text("Please Choose Location", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
-            draw_text("1. Town Entrance", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
-            draw_text("*", pygame.font.Font(None, 94), BLACK, SCREEN_WIDTH // 2 -245, SCREEN_HEIGHT // 1.5 )
-            draw_text("1.town Entrance", pygame.font.Font(None, 14), WHITE, SCREEN_WIDTH // 2 -245, SCREEN_HEIGHT // 1.5 + 10)
-
+            draw_text("1. Town", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
         elif game_state == "room1":
             screen.blit(intro_image, (180,-200))
             draw_text(text_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
