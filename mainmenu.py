@@ -11,10 +11,12 @@ SCREEN_HEIGHT = 800
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FONT = pygame.font.Font(None, 36)
-
+FONT2 = pygame.font.Font("Font/BigelowRules-Regular.ttf", 54)
 # this creates the window and applies the height and weight
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Text Adventure Game")
+
+title_screen_image = pygame.image.load("images/title screen.jpeg")
 
 def draw_text(text, font, color, x, y):
     text_surface = font.render(text, True, color)
@@ -34,15 +36,10 @@ def main_menu():
                 if event.key == pygame.K_ESCAPE:
                     return "quit"
 
-        screen.fill(BLACK)
-        '''
-        draw_text(   "  _____        _       _      _             _                  ___ _ ", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 5)
-        draw_text(   " |_   _|____ _| |_    /_\  __| |_ _____ _ _| |_ _  _ _ _ ___  | _ (_)", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 5+25)
-        draw_text(   "   | |/ -_) \ /  _|  / _ \/ _` \ V / -_) ' \  _| || | '_/ -_) |  _/ |", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 5+50)
-        draw_text(   "   |_|\___/_\_\\__| /_/ \_\__,_|\_/\___|_||_\__|\_,_|_| \___| |_| |_|", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 5+75)
-        '''
-        draw_text("Text Adventure Pi", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 -50)
-        draw_text("Press ENTER to Start", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        draw_text("Press ESC to Quit", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+        #screen.fill(BLACK)
+        screen.blit(title_screen_image, (180,-100))
+        draw_text("Text Adventure Pi", FONT2, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 -60)
+        draw_text("Press ENTER to Start", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 10)
+        draw_text("Press ESC to Quit", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 60)
 
         pygame.display.flip()

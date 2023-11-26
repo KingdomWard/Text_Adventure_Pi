@@ -12,14 +12,14 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FONT = pygame.font.Font(None, 24)
 #images for scenes
-intro_image = pygame.image.load("Text_Adventure_Pi/images/intro text image (muddy foggy village).jpeg")
-fight_rats_image = pygame.image.load("Text_Adventure_Pi/images/fight rats.jpeg")
-house_villagers_image = pygame.image.load("Text_Adventure_Pi/images/house villagers.jpeg")
-house_zombies_images = pygame.image.load("Text_Adventure_Pi/images/house zombie.jpeg")
-title_screen_image = pygame.image.load("Text_Adventure_Pi/images/title screen.jpeg")
-dead_end_image = pygame.image.load("Text_Adventure_Pi/images/dead end.jpeg")
-map = pygame.image.load("Text_Adventure_Pi/images/Barovia-Map.webp")
-map1 = pygame.image.load("Text_Adventure_Pi/images/Town map.jpg")
+intro_image = pygame.image.load("images\intro text image (muddy foggy village).jpeg")
+fight_rats_image = pygame.image.load("images/fight rats.jpeg")
+house_villagers_image = pygame.image.load("images\house villagers.jpeg")
+house_zombies_images = pygame.image.load("images\house zombie.jpeg")
+title_screen_image = pygame.image.load("images/title screen.jpeg")
+dead_end_image = pygame.image.load("images\dead end.jpeg")
+map = pygame.image.load("images\Barovia-Map.webp")
+map1 = pygame.image.load("images\Town map.jpg")
 
 # Dialogue
 text_intro_1 = 'Tall shapes loom out of the dense fog that surrounds everything.'
@@ -141,6 +141,35 @@ enter_windmill_4 = 'The awful odor comes out of an open, upright barrel in the c
 enter_windmill_5 = 'Warmth issues from a brick oven against one wall, and a crumbling staircase ascends the wall across from it.'
 enter_windmill_6 = 'Shrieks and cackles from somewhere higher up cause the old mill the shudder.'
 
+bone_mill_1 = 'A haggard, heavyset old woman with a face as wrinkled as a boiled apple sweeps the floor, pushing around a few old bones and stirring up a cloud of white dust with her broom.'
+bone_mill_2 = 'She wears a bloodstained, flour-caked apron. A long, sharp bodkin impales her bundled-up mound of gray hair. '
+bone_mill_3 = 'The dirt-caked windows allow very little light to enter this eight-foot-high chamber, most of which is taken up by a large millstone connected to a wooden gear shaft that rises through the ceiling in the center of the room. '
+bone_mill_4 = ' A stone staircase continues up, toward the sound of loud cackling.'
+
+mill_bedroom_1 = 'Dancing around a thick wooden gear shaft in the center of this cramped, circular room are two ugly young women wearing silk shawls and gowns of stitched flesh.'
+mill_bedroom_2 = ' Long needles stick out of their tangled mops of black hair. The women cackle with glee.'
+mill_bedroom_3 = 'In a rotting wooden closet are three crates, stacked one atop another, with small doors set into them. Next to the closet is a heap of discarded clothing.'
+mill_bedroom_4 = 'A ladder climbs to a wooden trapdoor in the nine-foot-hight ceiling. A moldy bed with a tattered canopy stands nearby.'
+
+fight_spinsters_1 = 'As you stand exhausted in the now empty room you approach the small crates and feel a calming force call out to you.'
+fight_spinsters_2 = 'You reach into the top crate and feel your hands close around a small hard lump, as you pull it out and inspect it.'
+fight_spinsters_3 = 'In your hand you hold a small raven shaped carving attached to a leather strap. You feel an aura of protection pouring off of the charm.'
+
+city_intro_1 = 'The Old Svalich Road meanders into a valley watched over by dark, brooding mountains to the north and south.'
+city_intro_2 = 'The woods recede, revealing a sullen mountain burg surrounded by a wooden palisade. '
+city_intro_3 = 'Thick fog presses up against this wall, as though looking for a way inside, hoping to catch the town aslumber. '
+city_intro_4 = 'The dirt road ends at a set of sturdy iron gates with a pair of shadowy figures standing behind them.'
+city_intro_1 = 'Planted in the ground and flanking the road outside the gates are half-a-dozen pikes with wolfs’ heads impaled on them.'
+
+city_gates_1 = 'A 15-foot-high wall encloses the town, its vertical logs are held together with thick ropes and mortar. '
+city_gates_1_2 = 'The top of each log has been sharpened to a point. Wooden scaffolding hugs the inside of the palisade twelve feet off the ground, enabling guards to peer over the wall there.'
+
+city_gates_2 ='As you pass under the gate you see, scrawled in faded paint, the Sunset Gate, written above you. '
+city_gates_2_2 = 'As you make your way into the town the streets around you are lined with abandoned cottages on a cobblestone paved street. '
+city_gates_2_3 ='Guards watch you pass from their posts, sunken eyes watching you suspiciously.'
+
+check_houses_1 = '(use the random house stuff from the previous city, rats, dogs, townsfolk)'
+
 # Create the game window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Text Adventure Game")
@@ -161,7 +190,10 @@ def game_loop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return "quit"                   # takes you to Main Menu anywhere in the game 
                 if game_state == "intro":
                     game_state = "room1"            # title screen
                 elif game_state == "room1":
@@ -176,11 +208,23 @@ def game_loop():
                     if event.key == pygame.K_RETURN:
                         game_state = "DeadEnd"
                 elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_RETURN:    #fight rats dead end and respawn map
                         game_state = "Map1"
                 elif game_state == "Map1":
                     if event.key == pygame.K_1:
                         game_state = "room1"
+
+
+                elif game_state == "room3":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "DeadEnd"
+                elif game_state =="DeadEnd":
+                    if event.key == pygame.K_RETURN:       #house with villagers dead end and map
+                        game_state = "Map1"
+                elif game_state == "Map1":
+                    if event.key == pygame.K_1:
+                        game_state = "room1"
+
 
                 elif game_state == "room4":
                     if event.key == pygame.K_RETURN:
@@ -246,9 +290,117 @@ def game_loop():
                     elif event.key == pygame.K_3: # head south back to town
                         game_state = "room1"
                 # mountain slope
-                elif game_state == "4-0":
+                elif game_state == "room 4-0":
                     if event.key == pygame.K_RETURN:
-                        game_state = "4-1"
+                        game_state = "room 4-1"
+                # Temple        
+                elif game_state == "room 4-1":
+                    if event.key == pygame.K_1:
+                        game_state = "room 4-1-1"
+                    elif event.key == pygame.K_2:
+                        game_state = "room 4-1-2"   
+                    elif event.key == pygame.K_3:
+                        game_state = "room 4-1-3" 
+                    elif event.key == pygame.K_4:
+                        game_state = "room 4-1-4" 
+                # overlook        
+                elif game_state == "room 4-1-1":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 4-1-1-2"
+
+                elif game_state == "room 4-1-1-2":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "DeadEnd"
+                elif game_state =="DeadEnd":
+                    if event.key == pygame.K_RETURN:       #fight skeletons dead end and map
+                        game_state = "Map1"
+                elif game_state == "Map1":
+                    if event.key == pygame.K_1:
+                        game_state = "room1" 
+
+
+                # empty barracks         
+                elif game_state == "room 4-1-2":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 4-1-2-2"
+
+                elif game_state == "room 4-1-2-2":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "DeadEnd"
+                elif game_state =="DeadEnd":
+                    if event.key == pygame.K_RETURN:       #fight sentient weapons dead end and map
+                        game_state = "Map1"
+                elif game_state == "Map1":
+                    if event.key == pygame.K_1:
+                        game_state = "room1"    
+                    
+                # guard room
+                elif game_state == "room 4-1-3":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 4-1-3-2"
+
+                elif game_state == "room 4-1-3-2":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "DeadEnd"
+                elif game_state =="DeadEnd":
+                    if event.key == pygame.K_RETURN:       #Fight skeleton wizarddead end and map
+                        game_state = "Map1"
+                elif game_state == "Map1":
+                    if event.key == pygame.K_1:
+                        game_state = "room1"
+                        
+                # temple secrets
+                elif game_state == "room 4-1-4":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 4-1-4-2"
+                elif game_state == "room 4-1-4-2":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 4-1-4-3"
+                # bog        
+                elif game_state == "room 4-1-4-3":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 6-0"                        
+
+                elif game_state == "room 6-0":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 6-1"
+                # windmill
+                elif game_state == "room 6-1":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 6-1-0" 
+                #                                  
+                elif game_state == "room 6-1-0":
+                    if event.key == pygame.K_1:
+                        game_state = "room 6-1-1" 
+                    elif event.key == pygame.K_2:
+                        game_state = "room 6-1-2" 
+
+                elif game_state == "room 6-1-1":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "DeadEnd"
+                elif game_state =="DeadEnd":
+                    if event.key == pygame.K_RETURN:       #fight the Bonegrinder end and map
+                        game_state = "Map1"
+                elif game_state == "Map1":
+                    if event.key == pygame.K_1:
+                        game_state = "room1"
+
+                elif game_state == "room 6-1-2":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 6-1-2-1" 
+
+                elif game_state == "room 6-1-2-1":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 7-0"         
+                # city
+                elif game_state == "room 7-0":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 7-1" 
+
+                elif game_state == "room 7-1":
+                    if event.key == pygame.K_RETURN:
+                        game_state = "room 7-1-1" 
+
 
         screen.fill(BLACK)
 
@@ -263,9 +415,12 @@ def game_loop():
             draw_text("Press Enter to Respawn", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
 
         elif game_state == "Map1":
-            screen.blit(map1,(180,0))
+            screen.blit(map1,(400,0))
             draw_text("Please Choose Location", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
-            draw_text("1. Town", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text("1. Town Entrance", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text("*", pygame.font.Font(None, 94), BLACK, SCREEN_WIDTH // 2 -245, SCREEN_HEIGHT // 1.5 )
+            draw_text("1.town Entrance", pygame.font.Font(None, 14), WHITE, SCREEN_WIDTH // 2 -245, SCREEN_HEIGHT // 1.5 + 10)
+
         elif game_state == "room1":
             screen.blit(intro_image, (180,-200))
             draw_text(text_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
@@ -298,7 +453,7 @@ def game_loop():
             draw_text(house_zombies_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
             draw_text(house_zombies_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
             draw_text(house_zombies_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 200)
-            draw_text("press ENTER to fight the zombies", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 250)
+            draw_text("press ENTER to fight the zombies", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 230)
         
         # transition state
         elif game_state == "room 2-0":
@@ -306,11 +461,12 @@ def game_loop():
             draw_text("1. Approach the local tavern", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 55)
             draw_text("2. Approach the large mansion", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 20)
         
+        # you see the tavern 
         elif game_state == "room 2-1":
             draw_text(local_tavern_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
             draw_text(local_tavern_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
             draw_text("Press ENTER to go inside", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 200)
-        
+        #inside tavern
         elif game_state == "room 2-1-0":
             draw_text(enter_tavern_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
             draw_text(enter_tavern_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 75)
@@ -333,7 +489,7 @@ def game_loop():
             draw_text(approach_mansion_door_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
             draw_text(approach_mansion_door_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
             draw_text("1. [“Please, I’m lost and need any help I can get!”]", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 30)
-        
+        # you see the mansion
         elif game_state == "room 2-2-1":
             draw_text(lady_mansion_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
             draw_text(lady_mansion_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
@@ -379,8 +535,8 @@ def game_loop():
         
         elif game_state == "room 3-0":
             draw_text('What will you do now?', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
-            draw_text('1. [Go to the Moors]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
-            draw_text('2. [Go to Mountain Slope]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 60)
+            draw_text('1. [Go to the Moors]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100 )
+            draw_text('2. [Go to Mountain Slope]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 75)
 
         elif game_state == "room 3-0-1":    
             draw_text(moors_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
@@ -402,5 +558,117 @@ def game_loop():
             draw_text(mountain_slope_intro_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
             draw_text(mountain_slope_intro_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
             draw_text('Press ENTER to explore the Temple!', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+            # temple
+        elif game_state == "room 4-1":
+            draw_text(down_stairs_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(down_stairs_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text('Where would you like to explore?', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text('1.[Overlook]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
+            draw_text('2.[Empty Barracks]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 75)
+            draw_text('3.[Guard Room]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 50)
+            draw_text('4.[Temple of Lost Secrets]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 25)
+        
+        elif game_state == "room 4-1-1":
+            draw_text(overlook_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(overlook_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(overlook_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(overlook_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text('Press ENTER to Fight Skeletons', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 4-1-1-2":
+            draw_text('Fight Skeletons', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 225)      # dead end
+
+
+        elif game_state == "room 4-1-2":
+            draw_text(empty_barracks_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text('Press ENTER to Fight sentient weapons', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+        
+        elif game_state == "room 4-1-2-2":
+            draw_text('Fight sentient weapons', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 225)     # dead end
+
+        elif game_state == "room 4-1-3":
+            draw_text(guard_room_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(guard_room_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text('Press ENTER to Fight skeleton wizard', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 4-1-3-2":
+            draw_text('Fight skeleton wizard', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 225)  # dead end
+
+        elif game_state == "room 4-1-4":
+            draw_text(temple_secrets_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 225)
+            draw_text(temple_secrets_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(temple_secrets_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(temple_secrets_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(temple_secrets_5, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text(temple_secrets_6, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
+            draw_text(temple_secrets_7, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 75)
+            draw_text('Press ENTER to Investigate the Statues ', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 4-1-4-2":
+            draw_text(investigate_statues_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(investigate_statues_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text('Press ENTER to Fight the statues ', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 4-1-4-3":
+            draw_text('you have attain the sun sword!', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            # sword picture
+            
+            # bog
+        elif game_state == "room 6-0":
+            draw_text(bog_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(bog_intro_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(bog_intro_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(bog_intro_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text(bog_intro_5, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
+            draw_text(bog_intro_6, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 75)
+            draw_text(bog_intro_7, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 50)
+            draw_text('Press ENTER to enter the Windmill!', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 6-1":
+            draw_text(enter_windmill_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(enter_windmill_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(enter_windmill_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(enter_windmill_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text(enter_windmill_5, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 100)
+            draw_text(enter_windmill_6, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 75)
+            draw_text('Press ENTER to enter explore the Windmill!', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 6-1-0":
+            draw_text('Where would you like to explore?', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text('1. [Bone Mill]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text('2. [Bedroom]', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+
+        elif game_state == "room 6-1-1":
+            draw_text("fight the Bonegrinder", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 225)  # dead end
+
+        elif game_state == "room 6-1-2":
+            draw_text(mill_bedroom_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(mill_bedroom_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(mill_bedroom_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(mill_bedroom_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text('Press ENTER to Fight the two spinsters', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+
+        elif game_state == "room 6-1-2-1":
+            draw_text(fight_spinsters_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(fight_spinsters_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(fight_spinsters_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+
+            # city
+        elif game_state == "room 7-0":
+            draw_text(city_intro_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(city_intro_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(city_intro_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+            draw_text(city_intro_4, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 125)
+            draw_text('Press ENTERr to approach the gates', FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 40)
+  
+        elif game_state == "room 7-1":
+            draw_text(city_gates_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(city_gates_1_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            
+        elif game_state == "room 7-1-1":
+            draw_text(city_gates_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 200)
+            draw_text(city_gates_2_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 175)
+            draw_text(city_gates_2_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 150)
+                       
 
         pygame.display.flip()
