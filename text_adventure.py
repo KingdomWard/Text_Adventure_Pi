@@ -1,6 +1,7 @@
 import pygame
 import sys
 from textwrap import fill
+import psutil 
 
 # Initialize Pygame
 pygame.init()
@@ -237,6 +238,15 @@ def draw_text(text, font, color, x, y):
     text_rect.center = (x, y)
     screen.blit(text_surface, text_rect)
 
+# Function to display CPU usage
+def display_cpu_usage():
+    cpu_usage = psutil.cpu_percent(interval=1, percpu=True)
+
+    y_position = 20  # Starting position on the Y-axis
+    for core, usage in enumerate(cpu_usage):
+        draw_text(f"Core {core+1}: {usage}%", FONT, WHITE, 150, y_position, )
+        y_position += 30  # Increment y_position for next line
+
 # loop function that begins the intro state, press keys to go to other states
 def game_loop():
     game_state = "intro"
@@ -259,7 +269,6 @@ def game_loop():
                         game_state = "room3"        #house with villagers
                     elif event.key == pygame.K_3:
                         game_state = "room4"        # house with zombies
-
                 elif game_state == "room2":
                     if event.key == pygame.K_RETURN:
                         game_state = "DeadEnd"
@@ -269,7 +278,6 @@ def game_loop():
                 elif game_state == "Map1":
                     if event.key == pygame.K_1:
                         game_state = "room1"
-
 
                 elif game_state == "room3":
                     if event.key == pygame.K_RETURN:
@@ -285,7 +293,6 @@ def game_loop():
                 elif game_state == "room4":
                     if event.key == pygame.K_RETURN:
                         game_state = "room 2-0"  # Transition state between 1 and 2   ##door aproach
-
                 elif game_state == "room 2-0":
                     if event.key == pygame.K_1:
                         game_state = "room 2-1"  # If the player presses 1, go to local tavern
@@ -499,7 +506,7 @@ def game_loop():
                     if event.key == pygame.K_RETURN:
                         game_state = "DeadEnd"
                 elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:       #fight the Bonegrinder
+                    if event.key == pygame.K_RETURN:       #fight the Bonegrinder dead
                         game_state = "Map1"
                 elif game_state == "Map1":
                     if event.key == pygame.K_1:
@@ -550,10 +557,12 @@ def game_loop():
 
             draw_text("Welcome to the Text Adventure Pi!", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 25)
             draw_text("Press any key to continue...", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
-            
+            display_cpu_usage()
+
         elif game_state == "DeadEnd":
             screen.blit(dead_end_image, (180,-200))
             draw_text("Press Enter to Respawn", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
+            display_cpu_usage()
 
         elif game_state == "Map1":
             screen.blit(map1,(400,0))
@@ -561,6 +570,8 @@ def game_loop():
             draw_text("1. Town Entrance", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
             draw_text("*", pygame.font.Font(None, 94), BLACK, SCREEN_WIDTH // 2 -245, SCREEN_HEIGHT // 1.5 )
             draw_text("1.town Entrance", pygame.font.Font(None, 14), WHITE, SCREEN_WIDTH // 2 -245, SCREEN_HEIGHT // 1.5 + 10)
+            display_cpu_usage()
+
 
         elif game_state == "room1":
             screen.blit(intro_image, (180,-200))
@@ -575,18 +586,21 @@ def game_loop():
             draw_text("1. Fight Rats", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 125)
             draw_text("2. Go to a House with Villagers", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
             draw_text("3. Go to a House with Zombies", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
+            display_cpu_usage()
 
         # fight rats option
         elif game_state == "room2":
             screen.blit(fight_rats_image, (180,-200))
             draw_text(fight_rats_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
             draw_text(fight_rats_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
+            display_cpu_usage()
 
         # house with villagers option    
         elif game_state == "room3":
             screen.blit(house_villagers_image, (180,-200))
             draw_text(house_villagers_1, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
             draw_text(house_villagers_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
+            display_cpu_usage()
 
         # house with zombies option
         elif game_state == "room4":
@@ -595,13 +609,15 @@ def game_loop():
             draw_text(house_zombies_2, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
             draw_text(house_zombies_3, FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 200)
             draw_text("press ENTER to fight the zombies", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 230)
-        
+            display_cpu_usage()
+
         # transition state
         elif game_state == "room 2-0":
             draw_text("You won the fight! What will you do now?", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT// 1.5 - 100)
             draw_text("1. Approach the local tavern", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 55)
             draw_text("2. Approach the large mansion", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 - 20)
         
+
         # you see the tavern 
         elif game_state == "room 2-1":
             screen.blit(townpub, (180,-200))
