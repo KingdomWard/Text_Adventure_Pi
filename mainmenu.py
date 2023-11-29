@@ -39,7 +39,7 @@ def main_menu():
         #screen.fill(BLACK)
         screen.blit(title_screen_image, (180,-100))
         draw_text("Text Adventure Pi", FONT2, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 -60)
-        draw_text("Press ENTER to Start", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 10)
-        draw_text("Press ESC to Quit", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 60)
+        draw_text("Press ENTER to Start", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 80)
+        draw_text("Press ESC to Quit", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 130)
 
         pygame.display.flip()
