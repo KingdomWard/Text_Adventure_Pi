@@ -2,6 +2,9 @@ import pygame
 import sys
 from textwrap import fill
 import psutil 
+import time
+
+
 
 # Initialize Pygame
 pygame.init()
@@ -298,7 +301,7 @@ def display_cpu_usage():
 # loop function that begins the intro state, press keys to go to other states
 def game_loop():
     game_state = "intro"
-
+    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -1162,3 +1165,5 @@ def game_loop():
         elif game_state == "victory":
             screen.blit(victory, (180,-200))
         pygame.display.flip()
+
+
