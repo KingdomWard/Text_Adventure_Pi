@@ -323,23 +323,33 @@ def game_loop():
                 elif game_state == "room2":
                     if event.key == pygame.K_RETURN:
                         game_state = "DeadEnd"
+
                 elif game_state =="DeadEnd":
                     if event.key == pygame.K_RETURN:    #fight rats dead end and respawn map
                         game_state = "Map1"
                 elif game_state == "Map1":
                     if event.key == pygame.K_1:
                         game_state = "room1"
+                # DEAD screen
+                elif game_state =="DeadEnd2":
+                    if event.key == pygame.K_RETURN:    #fight rats dead end and respawn map
+                        game_state = "Map"
+
+                elif game_state == "Map":
+                    if event.key == pygame.K_1:
+                        game_state = "room1"
+                    elif event.key == pygame.K_2:
+                        game_state = "room 2-0"
+                    elif event.key == pygame.K_3:
+                        game_state = "room 3-0"
+                    elif event.key == pygame.K_4:
+                        game_state = "room 4-1"
+                    elif event.key == pygame.K_5:
+                        game_state = "room 6-0"
 
                 elif game_state == "room3":
                     if event.key == pygame.K_RETURN:
                         game_state = "DeadEnd"
-                elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:       #house with villagers dead end and map
-                        game_state = "Map1"
-                elif game_state == "Map1":
-                    if event.key == pygame.K_1:
-                        game_state = "room1"
-
 
                 elif game_state == "room4":
                     if event.key == pygame.K_RETURN:
@@ -464,11 +474,7 @@ def game_loop():
 
                 elif game_state == "room 8-3-x":
                     if event.key == pygame.K_RETURN:
-                        game_state = "Dead1"
-                # DEAD screen
-                elif game_state == "Dead1":
-                    if event.key == pygame.K_RETURN:
-                        game_state = "room1"
+                        game_state = "DeadEnd2"
 
                 # mountain slope
                 elif game_state == "room 4-0":
@@ -490,14 +496,9 @@ def game_loop():
                         game_state = "room 4-1-1-2"
 
                 elif game_state == "room 4-1-1-2":
-                    if event.key == pygame.K_RETURN:
-                        game_state = "DeadEnd"
-                elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:       #fight skeletons dead end and map
-                        game_state = "Map1"
-                elif game_state == "Map1":
-                    if event.key == pygame.K_1:
-                        game_state = "room1" 
+                    if event.key == pygame.K_RETURN: #fight skeletons dead end and map
+                        game_state = "DeadEnd2"
+
 
 
                 # empty barracks         
@@ -507,13 +508,8 @@ def game_loop():
 
                 elif game_state == "room 4-1-2-2":
                     if event.key == pygame.K_RETURN:
-                        game_state = "DeadEnd"
-                elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:       #fight sentient weapons dead end and map
-                        game_state = "Map1"
-                elif game_state == "Map1":
-                    if event.key == pygame.K_1:
-                        game_state = "room1"    
+                        game_state = "DeadEnd2" #fight sentient weapons dead end and map
+    
                     
                 # guard room
                 elif game_state == "room 4-1-3":
@@ -521,14 +517,9 @@ def game_loop():
                         game_state = "room 4-1-3-2"
 
                 elif game_state == "room 4-1-3-2":
-                    if event.key == pygame.K_RETURN:
-                        game_state = "DeadEnd"
-                elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:       #Fight skeleton wizarddead end and map
-                        game_state = "Map1"
-                elif game_state == "Map1":
-                    if event.key == pygame.K_1:
-                        game_state = "room1"
+                    if event.key == pygame.K_RETURN:#Fight skeleton wizarddead end and map
+                        game_state = "DeadEnd2"
+
                         
                 # temple secrets
                 elif game_state == "room 4-1-4":
@@ -562,11 +553,11 @@ def game_loop():
                 
                 elif game_state == "room 5-5":
                     if event.key == pygame.K_1: # paint
-                        game_state = "DeadEnd"    
+                        game_state = "DeadEnd2"    
                     elif event.key == pygame.K_2: # fire
                         game_state = "room 5-6"
                     elif event.key == pygame.K_3:# a red shirt
-                        game_state = "DeadEnd"   
+                        game_state = "DeadEnd2"   
 
                 elif game_state == "room 5-6":
                     if event.key == pygame.K_RETURN:
@@ -588,13 +579,8 @@ def game_loop():
 
                 elif game_state == "room 6-1-1":
                     if event.key == pygame.K_RETURN:
-                        game_state = "DeadEnd"
-                elif game_state =="DeadEnd":
-                    if event.key == pygame.K_RETURN:       #fight the Bonegrinder dead
-                        game_state = "Map1"
-                elif game_state == "Map1":
-                    if event.key == pygame.K_1:
-                        game_state = "room1"
+                        game_state = "DeadEnd2"
+            
 
                 elif game_state == "room 6-1-2":
                     if event.key == pygame.K_RETURN:
@@ -668,6 +654,20 @@ def game_loop():
             draw_text("1.town Entrance", pygame.font.Font(None, 14), WHITE, SCREEN_WIDTH // 2 -245, SCREEN_HEIGHT // 1.5 + 10)
             display_cpu_usage()
 
+        elif game_state == "Map":
+            screen.blit(map1,(400,0))
+            draw_text("Please Choose Location", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
+            draw_text("1. Town Entrance", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
+            draw_text("2. Moors/Mountain Slope", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 1250)
+            draw_text("3. Temple", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 100)
+            draw_text("4. Mountain Lake", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 75)
+            draw_text("5. Bog", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 50)
+            display_cpu_usage()
+
+        elif game_state == "DeadEnd2":
+            screen.blit(dead, (180,-200))
+            draw_text("Press ENTER to respawn", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 200)
+            display_cpu_usage()
 
         elif game_state == "room1":
             screen.blit(intro_image, (180,-200))
