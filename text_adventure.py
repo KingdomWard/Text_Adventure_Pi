@@ -3,11 +3,13 @@ import sys
 from textwrap import fill
 import psutil 
 import time
+import config
 
 
 
 # Initialize Pygame
 pygame.init()
+
 
 # Constants
 SCREEN_WIDTH = 1400
@@ -15,11 +17,7 @@ SCREEN_HEIGHT = 800
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FONT = pygame.font.Font(None, 24)
-# music
-pygame.mixer.music.load("music/medievaltrack.mp3") # music file
-pygame.mixer.music.set_volume(0.2) # music volume
-pygame.mixer.music.play() # play music
-pygame.mixer.music.play(-1) # play music on loop
+
 
 #images for scenes
 intro_image = pygame.image.load("images\intro text image (muddy foggy village).jpeg")
@@ -300,6 +298,7 @@ def display_cpu_usage():
 
 # loop function that begins the intro state, press keys to go to other states
 def game_loop():
+    global is_game_paused  # Declare is_game_paused as global
     game_state = "intro"
     
     while True:
@@ -309,6 +308,8 @@ def game_loop():
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:  # Toggle pause when 'P' is pressed
+                    config.is_game_paused = not config.is_game_paused
                 if event.key == pygame.K_ESCAPE:
                     return "quit"                   # takes you to Main Menu anywhere in the game 
                 if game_state == "intro":
