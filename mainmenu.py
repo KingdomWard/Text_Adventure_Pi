@@ -24,6 +24,8 @@ def draw_text(text, font, color, x, y):
     text_rect.center = (x, y)
     screen.blit(text_surface, text_rect)
 
+
+
 def main_menu():
     while True:
         for event in pygame.event.get():
@@ -35,6 +37,8 @@ def main_menu():
                     return "start"
                 if event.key == pygame.K_ESCAPE:
                     return "quit"
+                if event.key == pygame.K_p:
+                    pause = True
 
         #screen.fill(BLACK)
         screen.blit(title_screen_image, (180,-100))
