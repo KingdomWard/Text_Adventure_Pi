@@ -2,7 +2,6 @@ import pygame
 import sys
 from textwrap import fill
 import psutil 
-import time
 import config
 
 
@@ -659,7 +658,7 @@ def game_loop():
             screen.blit(map1,(400,0))
             draw_text("Please Choose Location", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 175)
             draw_text("1. Town Entrance", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 150)
-            draw_text("2. Moors/Mountain Slope", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 1250)
+            draw_text("2. Moors/Mountain Slope", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 125)
             draw_text("3. Temple", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 100)
             draw_text("4. Mountain Lake", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 75)
             draw_text("5. Bog", FONT, WHITE, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5 + 50)

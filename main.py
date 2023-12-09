@@ -1,5 +1,4 @@
 import pygame
-import sys
 import psutil
 import threading
 import time
@@ -35,8 +34,9 @@ def calculate_cpu_usage(initial_cpu_times):
     for i, (initial, final) in enumerate(zip(initial_cpu_times, final_cpu_times)):
         cpu_usage = {k: getattr(final, k) - getattr(initial, k) for k in final._fields}
         core_total_cpu_time = sum(cpu_usage.values())
+        core_idle_time = cpu_usage['idle']
         if core_total_cpu_time > 0:  # Prevent division by zero
-            core_usage_percentage = (core_total_cpu_time / sum(cpu_usage.values())) * 100
+            core_usage_percentage = ((core_total_cpu_time - core_idle_time) / core_total_cpu_time) * 100
             print(f"CPU usage for Core {i+1}: {core_usage_percentage:.2f}%")
             total_usage += core_usage_percentage
 
@@ -71,14 +71,17 @@ def main():
             break
 
 if __name__ == "__main__":
+    '''
     initial_CPU = psutil.cpu_times()
     initial_process_CPU = psutil.Process().cpu_times()
+'''
     start_time = time.time()
 
     main()
 
-    # Collect CPU usage data
+    
     end_time = time.time()
+    ''' Collect CPU usage data
     final_CPU = psutil.cpu_times()
     final_process_cpu = psutil.Process().cpu_times()
 
@@ -87,4 +90,5 @@ if __name__ == "__main__":
                         (final_process_cpu.system - initial_process_CPU.system)
     cpu_usage_percentage = (process_cpu_time / total_cpu_time) * 100
     print(f"CPU usage percentage:  {cpu_usage_percentage:2f}%")
+    '''
     print(f"Completion time: {end_time - start_time}")
